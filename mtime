@@ -1,0 +1,35 @@
+#!/bin/bash
+# mtime generated from retime-0.1/mtime.sh 2024-09-06
+
+
+PACKAGE=retime
+VERSION=0.1
+AUTHOR="R.Jaksa 2024 GPLv3"
+SUBVERSION=""
+BUILT=2024-09-06
+HELP="
+NAME
+    mtime - list files according to their modification time
+
+USAGE
+    mtime [OPTIONS] [DIRECTORY/FILE]...
+
+DESCRIPTION
+    Look for files recursively.  If DIRECTORY/FILE is not specified
+    use the current working directory.  Print the modification time
+    and filename.
+
+OPTIONS
+    -h  This help.
+
+SEE ALSO
+    retime -h
+
+VERSION
+    $PACKAGE-$VERSION$SUBVERSION $AUTHOR built $BUILT
+"
+if test "x$1" = "x-h"; then echo "$HELP"; exit; fi
+
+find "$@" -type f -exec stat -c "%y %n" {} + 2>/dev/null | sort | sed 's:\.[0-9][0-9]* +[0-9]* \(\./\)\?: :' 
+
+# R.Jaksa 2024 GPLv3
